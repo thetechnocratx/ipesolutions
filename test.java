@@ -1,30 +1,26 @@
-
-/*
-    * 
-    * 
-    * 
-    * Question Number = 1
-    * 
-    * 
-    * 
-    * 
-    */
 import java.util.*;
 
-class Stack {
-    Scanner scan = new Scanner(System.in);
-    int[] stack;
-    int top, n; // n -> Size
+/*
+* Question Number = 1
+* Write a program to demonstrate stack operations using an array.(i.e Push,Pop, Peep,Change,display)
+* 
+* 
+*/
+class Q1 {
 
-    Stack() {
-        System.out.print("Enter Size of Stack : ");
-        n = scan.nextInt();
+    int top, n;
+    int stack[];
+    Scanner sc = new Scanner(System.in);
+
+    Q1() {
+        System.out.println("Enter Size Of Stack");
+        n = sc.nextInt();
         top = -1;
-        stack = new int[n];
+        stack = new int[10];
+
     }
 
     void push(int x) {
-        // x -> element
         if (top >= n - 1) {
             System.out.println("Stack Overflow");
             return;
@@ -35,28 +31,29 @@ class Stack {
 
     void pop() {
         if (top == -1) {
-            System.out.println("Stack underflow");
-            return;
-        }
-        System.out.println("Deleted elemement is : " + stack[top--]);
-    }
-
-    void peep(int i) {
-        // i -> index
-        if (top - i + 1 <= -1) {
             System.out.println("Stack Underflow");
             return;
         }
-        System.out.println("Element at " + i + "th index from top is : " + stack[top - i + 1]);
+        System.out.println("Deleted Element is : " + stack[top--]);
     }
 
     void change(int x, int i) {
         if (top - i + 1 <= -1) {
             System.out.println("Stack Underflow");
             return;
+
         }
         stack[top - i + 1] = x;
-        System.out.println("Element changed at " + i + "th index from top is : " + stack[top - i + 1]);
+        System.out.println("Element changed at" + i + "index is " + stack[top - i + 1]);
+    }
+
+    void peep(int i) {
+        if (top - i + 1 <= -1) {
+            System.out.println("Stack underflow");
+            return;
+        }
+        System.out.println("Element at" + i + "index from top is : " + stack[top - i + 1]);
+
     }
 
     void display() {
@@ -64,144 +61,130 @@ class Stack {
         for (int i = top; i > -1; i--) {
             System.out.println(stack[i]);
         }
-    }
-}
 
-class Main {
-    // via Recursion
-    Stack s = new Stack();
-    Scanner scan = new Scanner(System.in);
-
-    void options() {
-        System.out.print("""
-                Enter 0 : EXIT
-                Enter 1 : Push an element
-                Enter 2 : Pop an element
-                Enter 3 : Peep an element
-                Enter 4 : Change an element
-                Enter 5 : Display Stack
-                """);
-        int choice = scan.nextInt();
-        switch (choice) {
-            case 0 -> {
-                System.out.println("Exit");
-                return;
-            }
-            case 1 -> {
-                System.out.print("Enter element : ");
-                int x = scan.nextInt();
-                s.push(x);
-            }
-            case 2 -> {
-                s.pop();
-            }
-            case 3 -> {
-                int i;
-                do {
-                    System.out.print("Enter index : ");
-                    i = scan.nextInt();
-                    if (i <= 0) {
-                        System.out.println("Invalid Index");
-                    }
-                } while (i <= 0);
-                s.peep(i);
-            }
-            case 4 -> {
-                int i;
-                do {
-                    System.out.print("Enter index : ");
-                    i = scan.nextInt();
-                    if (i <= 0) {
-                        System.out.println("Invalid Index");
-                    }
-                } while (i <= 0);
-                System.out.print("Enter element : ");
-                int x = scan.nextInt();
-                s.change(x, i);
-            }
-            case 5 -> {
-                s.display();
-            }
-            default -> System.out.print("Enter a valid choice");
-        }
-        options();
-        System.out.println();
     }
 
     public static void main(String[] args) {
-        Main m = new Main();
-        m.options();
+        Scanner sc = new Scanner(System.in);
+
+        Q1 s = new Q1();
+        while (true) {
+
+            System.out.print("""
+                    Enter 0 : EXIT
+                    Enter 1 : Push an element
+                    Enter 2 : Pop an element
+                    Enter 3 : Peep an element
+                    Enter 4 : Change an element
+                    Enter 5 : Display Stack
+                    """);
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 0 -> {
+                    System.out.println("Exit");
+                    return;
+                }
+                case 1 -> {
+                    System.out.print("Enter element : ");
+                    int x = sc.nextInt();
+                    s.push(x);
+                }
+                case 2 -> {
+                    s.pop();
+                }
+                case 3 -> {
+                    int i;
+                    do {
+                        System.out.print("Enter index : ");
+                        i = sc.nextInt();
+                        if (i <= 0) {
+                            System.out.println("Invalid Index");
+                        }
+                    } while (i <= 0);
+                    s.peep(i);
+                }
+                case 4 -> {
+                    int i;
+                    do {
+                        System.out.print("Enter index : ");
+                        i = sc.nextInt();
+                        if (i <= 0) {
+                            System.out.println("Invalid Index");
+                        }
+                    } while (i <= 0);
+                    System.out.print("Enter element : ");
+                    int x = sc.nextInt();
+                    s.change(x, i);
+                }
+                case 5 -> {
+                    s.display();
+                }
+                default -> System.out.print("Enter a valid choice");
+            }
+        }
+
     }
 }
 
 /*
- * 
- * 
- * 
  * Question Number = 2
- * 
- * 
- * 
- * 
+ *
+ * Write a program to demonstrate queue operations using an array.(i.e Enqueue,
+ * Dequeue, display, getfront, getrear)
  */
-
-class QueueUsingArray {
-    int[] queue;
+class Q2 {
+    int queue[];
     int front, rear;
 
-    public QueueUsingArray(int size) {
+    Q2(int size) {
         queue = new int[size];
         front = -1;
         rear = -1;
     }
 
-    void enQueue(int element) {
+    void enqueue(int x) {
         if (rear == queue.length - 1) {
-            System.out.println("Overflow");
+            System.out.println("OverFlow");
         } else {
             if (front == -1) {
                 front = 0;
             }
-            queue[++rear] = element;
+            queue[++rear] = x;
             System.out.println("Inserted Element : " + queue[rear]);
         }
     }
 
     void deQueue() {
         if (front == -1) {
-            System.out.println("Underflow");
+            System.out.println("UnderFlow");
         } else {
-            int element = queue[front];
+            int x = queue[front];
             if (front == rear) {
                 front = -1;
                 rear = -1;
-                System.out.println("Queue Reset");
+                System.out.println("Queue reset");
             } else {
                 front++;
             }
-            System.out.println("Deleted element : " + element);
+            System.out.println("Deleted element is " + x);
         }
     }
 
-    // Method to get the front element of the queue (without removing it)
-    public int getFront() {
+    void getFront() {
         if (front <= rear) {
-            System.out.println("Front element of the queue: " + queue[front]);
-            return queueArray[front];
+            System.out.println("Front element of the queue  : " + queue[front]);
         } else {
-            System.out.println("Queue is empty. Cannot get front element.");
-            return -1; // Return a sentinel value for an empty queue
+            System.out.println("Queue is empty");
         }
     }
 
-    // Method to get the rear element of the queue (without removing it)
-    public int getRear() {
+    void getRear() {
         if (front <= rear) {
             System.out.println("Rear element of the queue: " + queue[rear]);
-            return queueArray[rear];
+
         } else {
             System.out.println("Queue is empty. Cannot get rear element.");
-            return -1; // Return a sentinel value for an empty queue
+            // Return a sentinel value for an empty queue
         }
     }
 
@@ -215,19 +198,32 @@ class QueueUsingArray {
             System.out.println();
         }
     }
+
+    public static void main(String[] args) {
+
+        Q2 de = new Q2(5);
+
+        de.enqueue(1);
+        de.enqueue(2);
+        de.enqueue(3);
+        de.enqueue(4);
+        de.enqueue(5);
+        de.enqueue(6);
+        de.deQueue();
+        de.getFront();
+        de.getRear();
+        de.display();
+
+    }
 }
 
 /*
- * 
- * 
- * 
  * Question Number = 3
  * 
- * 
- * 
- * 
+ * Write a program to demonstrate deque operations using an array.(i.e insert
+ * from front, delete from rear, display, getfront, getrear)
  */
-public class DeQueUsingArray {
+ class DeQueUsingArray {
     int[] queue;
     int front, rear;
 
@@ -237,6 +233,7 @@ public class DeQueUsingArray {
         rear = -1;
     }
 
+    // extra method
     void enQueueAtRear(int element) {
         if ((rear + 1) % queue.length == front) {
             System.out.println("Overflow");
@@ -267,6 +264,7 @@ public class DeQueUsingArray {
         }
     }
 
+    // Extra method no need to write in exam
     void deQueueAtFront() {
         if (front == -1) {
             System.out.println("Underflow");
@@ -300,8 +298,8 @@ public class DeQueUsingArray {
     // Method to get the front element of the deque
     public int getFront() {
         if (front >= 0) {
-            System.out.println("Front element of the deque: " + deque[front]);
-            return deque[front];
+            System.out.println("Front element of the deque: " + queue[front]);
+            return queue[front];
         } else {
             System.out.println("Deque is empty. Cannot get front element.");
             return -1; // Return a sentinel value for an empty deque
@@ -311,8 +309,8 @@ public class DeQueUsingArray {
     // Method to get the rear element of the deque
     public int getRear() {
         if (rear >= 0) {
-            System.out.println("Rear element of the deque: " + deque[rear]);
-            return deque[rear];
+            System.out.println("Rear element of the deque: " + queue[rear]);
+            return queue[rear];
         } else {
             System.out.println("Deque is empty. Cannot get rear element.");
             return -1; // Return a sentinel value for an empty deque
@@ -333,58 +331,22 @@ public class DeQueUsingArray {
         System.out.println();
     }
 }
-
 /*
- * 
- * 
- * 
  * Question Number = 4
  * 
- * 
- * 
- * 
+ * Write a program to demonstrate circular queue operations using an array. (i.e
+ * Enqueue, Dequeue, display, getfront, getrear)
  */
 
-// Write a Java program to implement operations on CIRCULAR QUEUE//
-import java.util.*;
+class Q4 {
 
-class Run
-{
-    public static void main(String args[])
-    {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the Size of Queue - "); //Here are we are asking the user to enter the queue size//
-        int size = sc.nextInt();
-        MyQueue q = new MyQueue(size); //created an object of class MyQueue & called parameterized constructor//
-        int choice = 0;
-        do{
-            System.out.println("Enter choice of your prefered operation - ");
-            choice = sc.nextInt();
-            switch(choice) //using a switch case we are asking user to enter the choice operation to be performed on queue//
-            {
-                case 1: q.enqueue();
-                break;
-                
-                case 2: q.dequeue();
-                break;
-
-                case 3: q.print();
-                break;
-                
-                case 4: break;
-            }
-        }while(choice != 4); //until the user enters choice value 4 the loop will run continuously//
-    }
-}
-
-class MyQueue {
     Scanner sc = new Scanner(System.in);
     int rear;
     int front;
     int size;
     int a[];
 
-    MyQueue(int s) // created a parameterized constructor//
+    Q4(int s) // created a parameterized constructor//
     {
         a = new int[s];
         rear = -1;
@@ -435,7 +397,7 @@ class MyQueue {
             System.out.println("Queue is empty");
             return -1;
         } else {
-            return queue[front];
+            return a[front];
         }
     }
 
@@ -444,7 +406,7 @@ class MyQueue {
             System.out.println("Queue is empty");
             return -1;
         } else {
-            return queue[rear];
+            return a[rear];
         }
     }
 
@@ -462,25 +424,48 @@ class MyQueue {
             System.out.println(a[i]); // separate SOP to print last element (Rear)//
         }
     }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the Size of Queue - "); // Here are we are asking the user to enter the queue size//
+        int size = sc.nextInt();
+        Q4 q = new Q4(size); // created an object of class MyQueue & called parameterized constructor//
+        int choice = 0;
+        do {
+            System.out.println("Enter choice of your prefered operation - ");
+            System.out.println("1 for enqueue");
+            System.out.println("2 for DeQueue");
+            System.out.println("3 for Print");
+
+            choice = sc.nextInt();
+            switch (choice) // using a switch case we are asking user to enter the choice operation to be
+                            // //performed on queue//
+            {
+                case 1:
+                    q.enqueue();
+                    break;
+                case 2:
+                    q.dequeue();
+                    break;
+                case 3:
+                    q.print();
+                    break;
+                case 4:
+                    break;
+            }
+        } while (choice != 4); // until the user enters choice value 4 the loop will run continuously//
+
+    }
 }
 
 /*
  * 
- * 
- * 
  * Question Number = 5
- * 
- * 
- * 
- * 
+ * Write a program to evaluate postfix expression using stack *
  */
-
-import java.util.Stack;
-
-public class PostfixEvaluator {
+class PostfixEvaluator {
     public static int evaluatePostfix(String postfix) {
         Stack<Integer> stack = new Stack<>();
-
         for (char ch : postfix.toCharArray()) {
             if (Character.isDigit(ch)) {
                 stack.push(ch - '0'); // Convert character to integer and push onto the stack
@@ -488,7 +473,6 @@ public class PostfixEvaluator {
                 int operand2 = stack.pop();
                 int operand1 = stack.pop();
                 int result = 0;
-
                 switch (ch) {
                     case '+':
                         result = operand1 + operand2;
@@ -506,13 +490,12 @@ public class PostfixEvaluator {
                         result = operand1 / operand2;
                         break;
                     default:
-                        throw new IllegalArgumentException("Invalid operator: " + ch);
+                        throw new IllegalArgumentException("Invalid operator: " +
+                                ch);
                 }
-
                 stack.push(result);
             }
         }
-
         if (stack.size() == 1) {
             return stack.pop();
         } else {
@@ -528,17 +511,11 @@ public class PostfixEvaluator {
 }
 
 /*
- * 
- * 
- * 
+ *
  * Question Number = 6
- * 
- * 
- * 
- * 
+ * Write a program to evaluate prefix expression using stack *
  */
-
-class Main {
+class Q6 {
     static boolean isOperator(char x) {
         switch (x) {
             case '+':
@@ -552,29 +529,26 @@ class Main {
 
     public static int evaluatePrefix(String expression) {
         Stack<Integer> stack = new Stack<>();
-
         // iterate over the expression in reverse order
         for (int i = expression.length() - 1; i >= 0; i--) {
-
             // if the character is an operator, pop two elements from the stack, perform the
             // operation, and insert the result back to the stack
             if (isOperator(expression.charAt(i))) {
                 int operand1 = stack.pop();
                 int operand2 = stack.pop();
-
                 switch (expression.charAt(i)) {
                     case '+':
-                        stack.insert(operand1 + operand2);
+                        stack.push(operand1 + operand2);
                         break;
                     case '-':
-                        stack.insert(operand1 - operand2);
+                        stack.push(operand1 - operand2);
                         break;
                     case '*':
-                        stack.insert(operand1 * operand2);
+                        stack.push(operand1 * operand2);
                         break;
                     case '/':
                         if (operand2 != 0) {
-                            stack.insert(operand1 / operand2);
+                            stack.push(operand1 / operand2);
                         } else {
                             System.out.println("Cannot divide by zero");
                             return -1;
@@ -583,10 +557,9 @@ class Main {
                 }
             } else if (Character.isDigit(expression.charAt(i))) {
                 // if the character is a digit, insert it to the stack
-                stack.insert(expression.charAt(i) - '0');
+                stack.push(expression.charAt(i) - '0');
             }
         }
-
         // if the expression was valid, the final result should be the only element left
         // in the stack
         if (stack.size() == 1) {
@@ -598,23 +571,17 @@ class Main {
     }
 
     public static void main(String[] args) {
-        String expression = "*+23/46";
+        String expression = "*32";
         System.out.println(evaluatePrefix(expression));
     }
 }
 
 /*
- * 
- * 
- * 
  * Question Number = 7
- * 
- * 
- * 
- * 
+ * Write a program to demonstrate a method insert at first to add node in first
+ * pos
+ * ition of a singly LinkedList *
  */
-
-import java.util.*;
 
 class SLL // operation class//
 {
@@ -646,7 +613,7 @@ class SLL // operation class//
     void display() // created a method to display the elements of Linked List//
     {
         Node temp = First; // created another reference variable temp which will have the same value as
-                           // first//
+        // first//
         while (temp != null) // until we get the temp = null this loop will run//
         {
             System.out.print(temp.data + "-");
@@ -657,15 +624,12 @@ class SLL // operation class//
 
     /*
      * 
-     * 
-     * 
      * Question Number = 8
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method insert at last to add node in last
+     * positi
+     * on of a singly LinkedList *
+     * NOTE : You have to write the full program in exam
      */
-
     void addLast(int data) // created a method to insert the data at last in Linkedlist//
     {
         Node n = new Node(data); // created a node n//
@@ -681,21 +645,17 @@ class SLL // operation class//
             temp.next = n; // once temp's next is null then new node n's value assigned to temp's next//
         }
     }
+
     /*
      * 
-     * 
-     * 
      * Question Number = 9
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method insert before particular value to ad
+     * d node in before the value entered by user in a singly LinkedList.
+     * NOTE : You have to write the full program in exam
      */
-
     void insertBeforeValue(int data, int value) // created a method to add the value before a particular value in the
-                                                // linked list
+    // linked list
     {
-
         int flag = 0;
         if (First == null) {
             System.out.println("Linked is empty");
@@ -727,21 +687,19 @@ class SLL // operation class//
             }
         }
     }
+
     /*
      * 
-     * 
-     * 
      * Question Number = 10
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method insert after particular value to add
+     * node
+     * in after the value entered by user in a singly LinkedList.
+     * NOTE : You have to write the full program in exam
      */
 
     void insertAfterValue(int data, int value) // created a method to add the value after a particular value in the
-                                               // linked list//
+    // linked list//
     {
-
         int flag = 0;
         if (First == null) {
             System.out.println("Linked is empty");
@@ -775,72 +733,62 @@ class SLL // operation class//
     }
 
     /*
-     * 
-     * 
-     * 
      * Question Number = 11
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method to insert a node in ordered way in
+     * asingly LinkedList.
+     * NOTE : You have to write the full program in exam
      */
-
     /* Inserts a new Node in order in this list. */
     public void insertInOrder(int data) {
         /* Allocate the Node & Put in the data */
         Node n = new Node(data);
-
         /* Special case for First node */
         if (First == null || First.data >= n.data) {
             n.next = First;
             First = n;
         } else {
-
             /* Locate the node before point of insertion */
             Node current = First;
-
             while (current.next != null && current.next.data < n.data) {
                 current = current.next;
             }
-
             n.next = current.next;
             current.next = n;
         }
     }
+
     /*
      * 
      * 
      * 
      * Question Number = 12
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method to delete the node at first position
+     * in a
+     * singly LinkedList.
+     * NOTE : You have to write the full program in exam
      */
-
-    Node deleteFirst() // created a method to delete the element from the start of the linked list//
+    void deleteFirst() // created a method to delete the element from the start of the linked list//
     {
         if (First == null) // checking for underflow condition//
         {
             System.out.println("Underflow");
-            return null;
         } else {
             Node del = First;
             First = First.next;
-            return del;
+            System.out.println("Deleted Node : " + del.data);
         }
     }
+
     /*
      * 
      * 
      * 
      * Question Number = 13
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method to delete the node at last position
+     * in a
+     * singly LinkedList.
+     * NOTE : You have to write the full program in exam
      */
-
     void deleteLast() // created a method to delete the element of a linked list from last//
     {
         if (First == null) // checking if the linked list is empty or not//
@@ -854,17 +802,17 @@ class SLL // operation class//
             del.next = null;
         }
     }
+
     /*
      * 
      * 
      * 
      * Question Number = 14
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method to delete the node with a value
+     * entered b
+     * y user in a singly LinkedList.
+     * NOTE : You have to write the full program in exam
      */
-
     void deleteValue(int value) // created a method to delete the particular value from the linked list//
     {
         int flag = 0;
@@ -873,7 +821,7 @@ class SLL // operation class//
         } else {
             Node dummy = First;
             while (dummy != null) // checking that the value we want to delete is already a part of linked list or
-                                  // not//
+                                  // not
             {
                 if (dummy.data == value) {
                     flag = 1;
@@ -927,17 +875,15 @@ class Run // created the run class to call the method by making objects//
         s.display();
     }
 }
+
 /*
- * 
- * 
- * 
  * Question Number = 15
  * 
- * 
- * 
- * 
+ * Write a program to demonstrate a method insert at first to add node in first
+ * posi
+ * tion of a circular LinkedList
+ * NOTE : You have to write the full program in exam
  */
-
 class CSLL {
     Node head = null;
 
@@ -967,17 +913,13 @@ class CSLL {
         }
         System.out.println(n.data + " inserted at first");
     }
-    /*
-     * 
-     * 
-     * 
-     * Question Number = 16
-     * 
-     * 
-     * 
-     * 
-     */
 
+    /*
+     * Question Number = 16
+     * Write a program to demonstrate a method insert at last to add node in last
+     * position of a circular LinkedList
+     * NOTE : You have to write the full program in exam
+     */
     void addLast(int data) {
         Node n = new Node(data);
         if (head == null) {
@@ -993,17 +935,13 @@ class CSLL {
         }
         System.out.println(n.data + " inserted at last");
     }
-    /*
-     * 
-     * 
-     * 
-     * Question Number = 17
-     * 
-     * 
-     * 
-     * 
-     */
 
+    /*
+     * Question Number = 17
+     * Write a program to demonstrate a method insert before particular value to add
+     * node in before the value entered by user in a circular LinkedList
+     * NOTE : You have to write the full program in exam
+     */
     void addBefore(int value, int data) {
         if (head == null) {
             System.out.println("Undeflow");
@@ -1028,17 +966,13 @@ class CSLL {
             }
         }
     }
-    /*
-     * 
-     * 
-     * 
-     * Question Number = 18
-     * 
-     * 
-     * 
-     * 
-     */
 
+    /*
+     * Question Number = 18
+     * Write a program to demonstrate a method insert after particular value to add
+     * node in after the value entered by user in a circular LinkedList.
+     * NOTE : You have to write the full program in exam *
+     */
     void addAfter(int value, int data) {
         if (head == null) {
             System.out.println("Undeflow");
@@ -1061,17 +995,13 @@ class CSLL {
             }
         }
     }
-    /*
-     * 
-     * 
-     * 
-     * Question Number = 19
-     * 
-     * 
-     * 
-     * 
-     */
 
+    /*
+     * Question Number = 19
+     * Write a program to demonstrate a method to insert a node in ordered way in a
+     * circular LinkedList
+     * NOTE : You have to write the full program in exam
+     */
     void addSort(int data) {
         Node n = new Node(data);
         if (head == null) {
@@ -1092,17 +1022,16 @@ class CSLL {
             }
         }
     }
+
     /*
      * 
      * 
      * 
      * Question Number = 20
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method to delete the node at first position
+     * in a circular LinkedList
+     * NOTE : You have to write the full program in exam
      */
-
     void deleteFirst() {
         if (head == null) {
             System.out.println("Undeflow");
@@ -1119,17 +1048,13 @@ class CSLL {
             temp.next = head;
         }
     }
-    /*
-     * 
-     * 
-     * 
-     * Question Number = 21
-     * 
-     * 
-     * 
-     * 
-     */
 
+    /*
+     * Question Number = 21
+     * Write a program to demonstrate a method to delete the node at last position
+     * in a circular LinkedList.
+     * NOTE : You have to write the full program in exam
+     */
     void deleteLast() {
         if (head == null) {
             System.out.println("Undeflow");
@@ -1146,17 +1071,13 @@ class CSLL {
             temp.next = head;
         }
     }
-    /*
-     * 
-     * 
-     * 
-     * Question Number = 22
-     * 
-     * 
-     * 
-     * 
-     */
 
+    /*
+     * Question Number = 22
+     * Write a program to demonstrate a method to delete the node with a value
+     * entered by user in a circular LinkedList.
+     * NOTE : You have to write the full program in exam
+     */
     void delete(int data) {
         if (head == null) {
             System.out.println("Undeflow");
@@ -1192,20 +1113,13 @@ class CSLL {
             System.out.println();
         }
     }
-
 }
 
 /*
- * 
- * 
- * 
  * Question Number = 23
- * 
- * 
- * 
- * 
+ * Write a program to demonstrate a method insert at first to add node in first
+ * position of a doubly LinkedList.
  */
-
 class DLL {
     Node head = null;
 
@@ -1233,16 +1147,11 @@ class DLL {
     }
 
     /*
-     * 
-     * 
-     * 
      * Question Number = 24
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method insert at last to add node in last
+     * position of a doubly
+     * LinkedList NOTE : You have to write the full program in exam
      */
-
     void addLast(int data) {
         Node n = new Node(data);
         if (head == null) {
@@ -1262,12 +1171,10 @@ class DLL {
      * 
      * 
      * Question Number = 25
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method insert before particular value to ad
+     * d node in before the value entered by user in a doubly LinkedList.
+     * NOTE : You have to write the full program in exam
      */
-
     void addBefore(int value, int data) {
         Node n = new Node(data);
         Node temp = head;
@@ -1293,16 +1200,11 @@ class DLL {
     }
 
     /*
-     * 
-     * 
-     * 
      * Question Number = 26
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method insert after particular value to add
+     * node in after the value entered by user in a doubly LinkedList.
+     * NOTE : You have to write the full program in exam
      */
-
     void addAfter(int value, int data) {
         Node n = new Node(data);
         Node temp = head;
@@ -1325,16 +1227,11 @@ class DLL {
     }
 
     /*
-     * 
-     * 
-     * 
      * Question Number = 27
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method to insert a node in ordered way in a
+     * doubly LinkedList
+     * NOTE : You have to write the full program in exam
      */
-
     void addSort(int data) {
         Node n = new Node(data);
         if (head == null) {
@@ -1359,16 +1256,11 @@ class DLL {
     }
 
     /*
-     * 
-     * 
-     * 
      * Question Number = 28
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method to delete the node at first position
+     * in a doubly LinkedList.
+     * NOTE : You have to write the full program in exam
      */
-
     void deleteFirst() {
         if (head == null) {
             System.out.println("Underflow");
@@ -1379,16 +1271,11 @@ class DLL {
     }
 
     /*
-     * 
-     * 
-     * 
      * Question Number = 29
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method to delete the node at last position
+     * in a doubly LinkedList.
+     * NOTE : You have to write the full program in exam
      */
-
     void deleteLast() {
         if (head == null) {
             System.out.println("Underflow");
@@ -1403,16 +1290,11 @@ class DLL {
     }
 
     /*
-     * 
-     * 
-     * 
      * Question Number = 30
-     * 
-     * 
-     * 
-     * 
+     * Write a program to demonstrate a method to delete the node with a value
+     * entered by user in a doubly LinkedList.
+     * NOTE : You have to write the full program in exam
      */
-
     void delete(int data) {
         if (head == null) {
             System.out.println("Underflow");
@@ -1439,7 +1321,6 @@ class DLL {
             }
         }
     }
-
 }
 
 /*
@@ -1447,12 +1328,8 @@ class DLL {
  * 
  * 
  * Question Number = 31
- * 
- * 
- * 
- * 
+ * Write a program to delete duplicate values from a given singly LinkedList.
  */
-
 class LinkedList {
     class Node {
         int data;
@@ -1469,10 +1346,8 @@ class LinkedList {
     void removeDuplicates() {
         Node ptr1 = null, ptr2 = null, dup = null;
         ptr1 = head;
-
         while (ptr1 != null && ptr1.next != null) {
             ptr2 = ptr1;
-
             while (ptr2.next != null) {
                 if (ptr1.data == ptr2.next.data) {
                     dup = ptr2.next;
@@ -1486,20 +1361,13 @@ class LinkedList {
     }
 
     /*
-     * 
-     * 
-     * 
      * Question Number = 32
-     * 
-     * 
-     * 
-     * 
+     * Write a program to delete only even values from a given singly LinkedList
+     * NOTE : You have to write the full program in exam
      */
-
     void removeEvenValues() {
         Node prev = null;
         Node current = head;
-
         while (current != null) {
             if (current.data % 2 == 0) {
                 if (prev != null) {
@@ -1515,20 +1383,12 @@ class LinkedList {
     }
 
     /*
-     * 
-     * 
-     * 
      * Question Number = 33
-     * 
-     * 
-     * 
-     * 
+     * Write a program to delete only odd values from a given singly LinkedList
      */
-
     void removeOddValues() {
         Node prev = null;
         Node current = head;
-
         while (current != null) {
             if (current.data % 2 != 0) {
                 if (prev != null) {
@@ -1568,30 +1428,20 @@ class Main2 {
         list.insert(12);
         list.insert(11);
         list.insert(10);
-
         System.out.println("Linked List before removing duplicates : \n ");
         list.printList();
-
         list.removeDuplicates();
-
         System.out.println("\nLinked List after removing duplicates : \n ");
         list.printList();
     }
 }
 
 /*
- * 
- * 
- * 
  * Question Number = 34
- * 
- * 
- * 
- * 
+ * Write a program to delete odd positioned nodes from a given singly
+ * LinkedList.*
  */
-
 class LinkedList2 {
-
     class Node {
         int data;
         Node next;
@@ -1624,10 +1474,13 @@ class LinkedList2 {
 
     // Function to delete nodes at odd positions
     void deleteOddNodes() {
-        Node current = head;
-        while (current != null && current.next != null) {
-            current.next = current.next.next;
-            current = current.next;
+        if (head != null) {
+            head = head.next;
+            Node current = head;
+            while (current != null && current.next != null) {
+                current.next = current.next.next;
+                current = current.next;
+            }
         }
     }
 
@@ -1642,37 +1495,28 @@ class LinkedList2 {
     }
 }
 
-class Main3 {
+class test {
     public static void main(String[] args) {
         LinkedList2 list = new LinkedList2();
-
         // Insert some elements into the linked list
         list.insert(1);
         list.insert(2);
         list.insert(3);
         list.insert(4);
         list.insert(5);
-
         System.out.println("Original Linked List:");
         list.display();
-
         // Delete nodes at odd positions
         list.deleteOddNodes();
-
         System.out.println("Linked List after deleting odd-positioned nodes:");
         list.display();
     }
 }
 
 /*
- * 
- * 
- * 
  * Question Number = 35
- * 
- * 
- * 
- * 
+ * Write a program to delete even positioned nodes from a given singly
+ * LinkedList
  */
 
 class LinkedList3 {
@@ -1711,7 +1555,6 @@ class LinkedList3 {
         Node current = head;
         Node prev = null;
         int position = 1;
-
         while (current != null) {
             if (position % 2 == 0) {
                 // Delete even-positioned node
@@ -1738,21 +1581,18 @@ class LinkedList3 {
 class Main4 {
     public static void main(String[] args) {
         LinkedList3 list = new LinkedList3();
-
         // Insert some elements into the linked list
         list.insert(1);
         list.insert(2);
         list.insert(3);
         list.insert(4);
         list.insert(5);
-
         System.out.println("Original Linked List:");
         list.display();
-
         // Delete nodes at even positions
         list.deleteEvenNodes();
-
         System.out.println("Linked List after deleting even-positioned nodes:");
         list.display();
     }
+
 }
